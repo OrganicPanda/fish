@@ -1,0 +1,81 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@sea-color: #4A90E2;
+
+body {
+  background: @sea-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: 'Amatic SC', cursive;
+  font-size: 150%; 
+  text-align: center;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+h1 {
+  width: 100%;
+  padding: 20px;
+  margin: 0;
+}
+
+.fish {
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  width: 30%;  
+  animation: wave; 
+  animation-duration: 4s; 
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  
+  &:nth-child(1) {
+    animation-direction: reverse;
+  }
+}
+
+@max-overlap: unit(`Math.floor(Math.random() * (30 - 1)) + 1`, %);
+@max-drop: unit(`Math.floor(Math.random() * (60 - 30)) + 30`, %);
+@rotation: 180deg;
+@rotation-change: unit(`Math.floor(Math.random() * (60 - 30)) + 30`, deg);
+
+// 4 points, 0 & 4 are the same
+@keyframes wave {
+  0% {
+    transform: 
+      translate3d(0, 0, 0) 
+      rotateY(@rotation);
+  }
+  25% {
+    transform: 
+      translate3d(@max-overlap, @max-drop, 0) 
+      rotateY((@rotation - @rotation-change));
+  }
+  50% {
+    transform: 
+      translate3d(@max-overlap, 0, 0) 
+      rotateY(@rotation);
+  }
+  75% {
+    transform: 
+      translate3d(0, -@max-drop, 0) 
+      rotateY((@rotation + @rotation-change));
+  }
+  100% {
+    transform: 
+      translate3d(0, 0, 0) 
+      rotateY(@rotation);
+  }
+}
+
